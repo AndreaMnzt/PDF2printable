@@ -13,3 +13,7 @@ pyhton PDF2printable.py filename.pdf
 
 Note:
 the script is just a (working) sketch.
+
+library to install:
+pip install PyPDF4
+pip install python-docx
