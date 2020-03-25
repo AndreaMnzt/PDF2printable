@@ -4,7 +4,7 @@ from PIL import Image
 import io
 from docx import Document
 import StringIO
-from docx.shared import Cm
+from docx.shared import Cm, Inches
 from docx.enum.table import WD_TABLE_ALIGNMENT
 import sys
 
