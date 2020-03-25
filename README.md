@@ -1,7 +1,9 @@
 # PDF2printable
 A useful python script to convert a pdf file (composed by jpg images) to a docx file with a table with all images in the pdf.
-
 **The script is useful for students to print a pptx file made available as a pdf.**
+
+<img src = "images/script_description.png" width  = 1000></img>
+
 This pdf can be saved using the chrome print toolbox with the "print as image" option.
 
 By passing this file to the script a .docx file with all the images (the slides in the pptx) in a grid is provided.
