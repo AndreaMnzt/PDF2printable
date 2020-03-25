@@ -47,4 +47,6 @@ At the moment the only way to customize the script is edit the following lines o
 The value of _side_bar_ can be specified in Cm(_centimeter value_) and Inches(_inches value_). Set it to Cm(0) to remove the sidebar and make the image grid full page.
 
 ### Note:
-The script is just a (working) sketch.
+1. Due to docx table styles the margins of the table will be printet. They can be set to trasparent with libreoffice writer/ office word or any other docx viewer software.
+2. Since the docx has a quasi fullsreen table of images, to print the document the printer should be able to print without margins.
+2. The script is just a (working) sketch.
