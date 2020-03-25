@@ -1,5 +1,6 @@
 # PDF2printable
 A useful python script to convert a pdf file (composed by jpg images) to a docx file with a table with all images in the pdf.
+
 **The script is useful for students to print a pptx file made available as a pdf.**
 
 <img src = "images/script_description.png" width  = 1000></img>
@@ -46,4 +47,4 @@ At the moment the only way to customize the script is edit the following lines o
 The value of _side_bar_ can be specified in Cm(_centimeter value_) and Inches(_inches value_). Set it to Cm(0) to remove the sidebar and make the image grid full page.
 
 ### Note:
-the script is just a (working) sketch.
+The script is just a (working) sketch.
