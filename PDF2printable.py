@@ -8,10 +8,15 @@ from docx.shared import Cm, Inches
 from docx.enum.table import WD_TABLE_ALIGNMENT
 import sys
 
-#change this parameter to change the page format
-n_rows = 3
+##Change this parameter to change the page format
+#rows of images grid
+n_rows = 3          
+#columns of images grid
 n_columns = 2
-side_bar = Cm(2)
+#width of the sidebar
+side_bar = Cm(1.5)
+#height of the top bar
+top_bar = Cm(1.5)
 
 document = Document()
 
@@ -25,7 +30,7 @@ if __name__ == "__main__":
 	
 	#set shape to A4 paper
 	sections = document.sections
-	img_height = sections[0].page_height = Cm(29.5) 
+	img_height = sections[0].page_height = Cm(29.7) 
 	img_width = sections[0].page_width  = Cm(20.8)
 
 	#errror if file not provided
@@ -63,8 +68,8 @@ if __name__ == "__main__":
 		if len(imgs_per_page) == n_imgs_per_doc_page:
 				
 				#start by a 0x(n_columns+1) grid
-				table = document.add_table(rows=0, cols=n_columns+1)
-
+				table = document.add_table(rows=1, cols=n_columns+1)
+				table.rows[0].height = top_bar
 
 				if right_page: #put the border in the left
 					table.columns[0].width = side_bar
@@ -123,7 +128,7 @@ if __name__ == "__main__":
 					
 					#add image to table
 					run = paragraph.add_run()
-					run.add_picture(StringIO.StringIO(image), width = (img_width-side_bar)/n_columns*0.98 , height = img_height/n_rows*98/100)
+					run.add_picture(StringIO.StringIO(image), width = (img_width-side_bar)/n_columns*0.98 , height = (img_height-top_bar)/n_rows*98/100)
 					
 					col += 1
 				
@@ -180,7 +185,9 @@ if __name__ == "__main__":
 	# NOTE: just a repetition of the code above, will be converted in a function in the future (maybe)
 	if len(imgs_per_page) != 0: 
 			
-			table = document.add_table(rows=0, cols=n_columns+1)
+			table = document.add_table(rows=1, cols=n_columns+1)
+			table.rows[0].height = top_bar
+			
 			if right_page:
 				table.columns[0].width = side_bar
 			#table.columns[1].width = table.columns[2].width = (img_width-side_bar)/n_columns
@@ -235,7 +242,7 @@ if __name__ == "__main__":
 			
 				#add image to table
 				run = paragraph.add_run()
-				run.add_picture(StringIO.StringIO(image), width = (img_width-side_bar)/n_columns*0.98 , height = img_height/n_rows*98/100)
+				run.add_picture(StringIO.StringIO(image), width = (img_width-side_bar)/n_columns*0.98 , height = (img_height-top_bar)/n_rows*98/100)
 			
 				col += 1
 				
