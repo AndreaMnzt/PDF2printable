@@ -39,13 +39,21 @@ At the moment the only way to customize the script is edit the following lines o
 
 <code>n_columns = 2</code>
 
-<code>side_bar = Cm(2)</code>
+<code>side_bar = Cm(1.5)</code>
+
+<code>top_bar = Cm(1.5)</code>
 
 - _n_rows_ specifies the rows of the images grid in the output docx file.
 - _n_columns_ specifies the columns of the images grid in the output docx file.
 - _side_bar_ specifies the width of the sidebar to make the page fit a notebook page (or to insert it in a 4-ring binder).
-The value of _side_bar_ can be specified in Cm(_centimeter value_) and Inches(_inches value_). Set it to Cm(0) to remove the sidebar and make the image grid full page.
+The value of _side_bar_ can be specified in Cm(_centimeter value_) and Inches(_inches value_). Set it to Cm(0) to remove the sidebar and make the image grid full page. 
 
+Note 1: this is implemented as a blank column in the images table.
+- _top_bar_ specifies the height of the header of the page. 
+
+Note 1: this is implemented as a blank row in the images table.
+
+Note 2: top_bar is currently not represented in the description image above.
 ### Note:
 1. Due to docx table styles the margins of the table will be printet. They can be set to trasparent with libreoffice writer/ office word or any other docx viewer software.
 2. Since the docx has a quasi fullsreen table of images, to print the document the printer should be able to print without margins.
