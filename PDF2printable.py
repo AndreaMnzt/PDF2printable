@@ -7,6 +7,7 @@ import StringIO
 from docx.shared import Cm, Inches
 from docx.enum.table import WD_TABLE_ALIGNMENT
 import sys
+from insert_images import *
 
 ##Change this parameter to change the page format
 #rows of images grid
@@ -20,30 +21,34 @@ top_bar = Cm(1.5)
 
 document = Document()
 
+#set shape to A4 paper
+sections = document.sections
+img_height = sections[0].page_height = Cm(29.7) 
+img_width = sections[0].page_width  = Cm(20.8)
+
+#remove margins of the page
+for section in sections:
+	section.top_margin = Cm(0)
+	section.bottom_margin = Cm(0)
+	section.left_margin = Cm(0)
+	section.right_margin = Cm(0)
+
+
+sizes = [n_rows, n_columns, side_bar, top_bar, img_width, img_height]
+
+
+
 if __name__ == "__main__":
 	
 	
 	
 	
-	#get tables in docx document
-	tables = document.tables
 	
-	#set shape to A4 paper
-	sections = document.sections
-	img_height = sections[0].page_height = Cm(29.7) 
-	img_width = sections[0].page_width  = Cm(20.8)
-
+	
 	#errror if file not provided
 	if(len(sys.argv) < 2):
 		print("Usage: python PDF2printable.py <namefile.pdf>")
 		exit(1)
-	
-	#remove margins of the page
-	for section in sections:
-		section.top_margin = Cm(0)
-		section.bottom_margin = Cm(0)
-		section.left_margin = Cm(0)
-		section.right_margin = Cm(0)
 	
 
 	
@@ -67,71 +72,7 @@ if __name__ == "__main__":
 		#if the number of slide per page is reached insert them in a docx page
 		if len(imgs_per_page) == n_imgs_per_doc_page:
 				
-				#start by a 0x(n_columns+1) grid
-				table = document.add_table(rows=1, cols=n_columns+1)
-				table.rows[0].height = top_bar
-
-				if right_page: #put the border in the left
-					table.columns[0].width = side_bar
-					for i in range(1,len(table.columns)):
-						table.columns[i].width = (img_width-side_bar)/n_columns
-					
-				else: #put the border in the right
-					table.columns[-1].width = side_bar
-					for i in range(len(table.columns)-1):
-						table.columns[i].width = (img_width-side_bar)/n_columns
-					
-				table.style = "Table Grid"
-				table.autofit = False
-				table.allow_autofit = False
-
-				#if right_page:
-				#	table.alignment = WD_TABLE_ALIGNMENT.LEFT
-				#else: 
-				#	table.alignment = WD_TABLE_ALIGNMENT.LEFT
-		
-				#index for the column in the grid to insert the image
-				col = 0
-				
-				#add a row to the table
-				row_cells = table.add_row().cells
-				
-				#for every image
-				for i in range(0,len(imgs_per_page)):
-					
-					#get the image to print in the table this cycle\
-					image = imgs_per_page[i]
-										
-					#every n_column image change row by creating a new row 
-					if(col == n_columns):
-						col = 0
-						row_cells = table.add_row().cells
-							
-					#change border accoring to right or left page
-					if right_page:
-						actual_col = col+1
-					else:
-						actual_col = col
-
-
-					#create paragraph within the table 
-					paragraph = row_cells[actual_col].paragraphs[0]
-					cell_paragraph_format = paragraph.paragraph_format
-					cell_paragraph_format.left_indent = Cm(0)
-					cell_paragraph_format.right_indent = Cm(0)
-					
-					#set alignment of picture inside the table
-					#if right_page:
-					paragraph.alignment = WD_TABLE_ALIGNMENT.LEFT
-					#else: 
-					#	paragraph.alignment = WD_TABLE_ALIGNMENT.LEFT
-					
-					#add image to table
-					run = paragraph.add_run()
-					run.add_picture(StringIO.StringIO(image), width = (img_width-side_bar)/n_columns*0.98 , height = (img_height-top_bar)/n_rows*98/100)
-					
-					col += 1
-				
+				insert_images(document, sizes, imgs_per_page, right_page)
 				
 				#"flip" page for the next page
 				right_page = not right_page
@@ -182,75 +123,14 @@ if __name__ == "__main__":
 					#img.close()
 					
 	#if there are still images in the butter put them in a new page by repeating the above scrpt
-	# NOTE: just a repetition of the code above, will be converted in a function in the future (maybe)
+	# NOTE: just a repetition of the code above
 	if len(imgs_per_page) != 0: 
-			
-			table = document.add_table(rows=1, cols=n_columns+1)
-			table.rows[0].height = top_bar
-			
-			if right_page:
-				table.columns[0].width = side_bar
-			#table.columns[1].width = table.columns[2].width = (img_width-side_bar)/n_columns
-				for i in range(1,len(table.columns)):
-					table.columns[i].width = (img_width-side_bar)/n_columns
-					
-			else:
-				table.columns[-1].width = side_bar
-				for i in range(len(table.columns)-1):
-					table.columns[i].width = (img_width-side_bar)/n_columns
-					
-			table.style = "Table Grid"
-			table.autofit = False
-			table.allow_autofit = False
-
-				#if right_page:
-				#	table.alignment = WD_TABLE_ALIGNMENT.LEFT
-				#else: 
-				#	table.alignment = WD_TABLE_ALIGNMENT.LEFT
-		
+			insert_images(document, sizes, imgs_per_page, right_page)	
 				
-			col = 0
-			row_cells = table.add_row().cells
-			for i in range(0,len(imgs_per_page)):
-					
-				#get the image to print in the table this cycle\
-				image = imgs_per_page[i]
-										
-				#every n_column image change row by creating a new row 
-				if(col == n_columns):
-					col = 0
-					row_cells = table.add_row().cells
-						
-				#change border accoring to right or left page
-				if right_page:
-					actual_col = col+1
-				else:
-					actual_col = col
-
-
-				#create paragraph within the table 
-				paragraph = row_cells[actual_col].paragraphs[0]
-				cell_paragraph_format = paragraph.paragraph_format
-				cell_paragraph_format.left_indent = Cm(0)
-				cell_paragraph_format.right_indent = Cm(0)
-					
-				#set alignment of picture inside the table
-				#if right_page:
-				paragraph.alignment = WD_TABLE_ALIGNMENT.LEFT
-				#else: 
-				#	paragraph.alignment = WD_TABLE_ALIGNMENT.LEFT
-			
-				#add image to table
-				run = paragraph.add_run()
-				run.add_picture(StringIO.StringIO(image), width = (img_width-side_bar)/n_columns*0.98 , height = (img_height-top_bar)/n_rows*98/100)
-			
-				col += 1
+			#since this is supposed to be the last page i don't need to flip it	
+			#right_page = not right_page
 				
-				
-				
-			right_page = not right_page
-				
-					
+			#clear memory		
 			imgs_per_page = []
 
 
