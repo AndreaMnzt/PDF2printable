@@ -19,12 +19,16 @@ side_bar = Cm(1.5)
 #height of the top bar
 top_bar = Cm(1.5)
 
+
 document = Document()
 
 #set shape to A4 paper
 sections = document.sections
-img_height = sections[0].page_height = Cm(29.7) 
-img_width = sections[0].page_width  = Cm(20.8)
+doc_height = sections[0].page_height = Cm(29.7) 
+doc_width = sections[0].page_width  = Cm(21.0)
+img_width = (doc_width - side_bar)/n_columns * 0.98
+img_height = (doc_height - top_bar)/n_rows * 0.98
+
 
 #remove margins of the page
 for section in sections:
@@ -32,18 +36,17 @@ for section in sections:
 	section.bottom_margin = Cm(0)
 	section.left_margin = Cm(0)
 	section.right_margin = Cm(0)
-
-
+	#section.footer_distance = Cm(0)
+	#section.header_distance = Cm(0)
+	#section.gutter = Cm(0)
+	#section.header.is_linked_to_previous = True
+	#section.footer.is_linked_to_previous = True
+	
 sizes = [n_rows, n_columns, side_bar, top_bar, img_width, img_height]
 
 
 
 if __name__ == "__main__":
-	
-	
-	
-	
-	
 	
 	#errror if file not provided
 	if(len(sys.argv) < 2):
