@@ -55,9 +55,8 @@ Note 1: this is implemented as a blank row in the images table.
 
 Note 2: top_bar is currently not represented in the description image above.
 ### Note:
-1. Due to docx table styles the margins of the table will be printet. They can be set to trasparent with libreoffice writer/ office word or any other docx viewer software.
-2. Since the docx has a quasi fullsreen table of images, to print the document the printer should be able to print without margins.
-2. The script is just a (working) sketch.
+- Since the docx has a quasi fullsreen table of images, to print the document the printer should be able to print without margins.
+- The script is just a (working) sketch.
 
 ### Credits
 - Stackoverflow for some code snippets
