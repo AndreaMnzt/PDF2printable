@@ -113,7 +113,7 @@ def insert_images(document, sizes, imgs_per_page, right_page):
 		paragraph = row_cells[actual_col].paragraphs[0]
 		paragraph.style = 'List'
 		cell_paragraph_format = paragraph.paragraph_format
-		cell_paragraph_format.left_indent = Cm(0.5)
+		cell_paragraph_format.left_indent = Cm(0.1)
 		cell_paragraph_format.right_indent = Cm(0)
 		
 		#set alignment of picture inside the table

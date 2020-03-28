@@ -26,7 +26,7 @@ document = Document()
 sections = document.sections
 doc_height = sections[0].page_height = Cm(29.7) 
 doc_width = sections[0].page_width  = Cm(21.0)
-img_width = (doc_width - side_bar)/n_columns * 0.98
+img_width = (doc_width - side_bar)/n_columns * 0.99
 img_height = (doc_height - top_bar)/n_rows * 0.98
 
 
