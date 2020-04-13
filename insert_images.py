@@ -117,10 +117,10 @@ def insert_images(document, sizes, imgs_per_page, right_page):
 		cell_paragraph_format.right_indent = Cm(0)
 		
 		#set alignment of picture inside the table
-		#if right_page:
-		#	paragraph.alignment = WD_TABLE_ALIGNMENT.RIGHT
-		#else: 
-		#	paragraph.alignment = WD_TABLE_ALIGNMENT.RIGHT
+		if right_page:
+			paragraph.alignment = WD_TABLE_ALIGNMENT.LEFT
+		else: 
+			paragraph.alignment = WD_TABLE_ALIGNMENT.RIGHT
 					
 		#add image to table
 		run = paragraph.add_run()

@@ -11,14 +11,18 @@ from insert_images import *
 
 ##Change this parameter to change the page format
 #rows of images grid
-n_rows = 3          
+n_rows = 3       
 #columns of images grid
 n_columns = 2
 #width of the sidebar
 side_bar = Cm(1.5)
 #height of the top bar
-top_bar = Cm(1.5)
+top_bar = Cm(.5)
 
+#angle to rotate
+#angle  = 90 feature in dev
+#put new_page to false if blank pages appear
+new_page = False
 
 document = Document()
 
@@ -26,15 +30,15 @@ document = Document()
 sections = document.sections
 doc_height = sections[0].page_height = Cm(29.7) 
 doc_width = sections[0].page_width  = Cm(21.0)
-img_width = (doc_width - side_bar)/n_columns * 0.99
-img_height = (doc_height - top_bar)/n_rows * 0.98
+img_width = (doc_width - side_bar)/n_columns * 0.98
+img_height = (doc_height - top_bar)/n_rows * .97 	
 
 
 #remove margins of the page
 for section in sections:
 	section.top_margin = Cm(0)
 	section.bottom_margin = Cm(0)
-	section.left_margin = Cm(0)
+	section.left_margin = Cm(0.5)
 	section.right_margin = Cm(0)
 	#section.footer_distance = Cm(0)
 	#section.header_distance = Cm(0)
@@ -81,7 +85,8 @@ if __name__ == "__main__":
 				right_page = not right_page
 				
 				#create a blank new page
-				document.add_page_break()
+				if new_page:
+					document.add_page_break()
 					
 				#remove the images in the images buffer
 				imgs_per_page = []
