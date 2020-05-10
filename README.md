@@ -1,8 +1,8 @@
 # PDF2printable
-A useful script to insert the pages of a pdf file in a grid inside a docx file. 
-The pdf pages are resized in the grid to maximize the space for printing.
+A useful script to print pptx file made available as pdf. 
+The pdf pages are resized in the grid of a docx file to maximize the space for printing.
 
-**The script is useful for students to print a pptx file made available as a pdf.**
+**The script is useful for students to print a pptx file made available as a pdf file.**
 
 <img src = "images/script_description.png" width  = 1000></img>
 
