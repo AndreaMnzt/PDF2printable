@@ -1,24 +1,18 @@
 # PDF2printable
-A useful python script to convert a pdf file (composed by jpg images) to a docx file with a table with all images in the pdf.
+A useful script to insert the pages of a pdf file in a grid inside a docx file. 
+The pdf pages are resized in the grid to maximize the space for printing.
 
 **The script is useful for students to print a pptx file made available as a pdf.**
 
 <img src = "images/script_description.png" width  = 1000></img>
 
-This pdf can be saved using the chrome print toolbox with the "print as image" option.
-
-By passing this file to the script a .docx file with all the images (the slides in the pptx) in a grid is provided.
+By passing your pdf file to the script a .docx file with all the pages (the slides in the pptx) in a grid is provided.
 The space is maximized to print the slides as large as possible.
 A lateral space is at the left/right of the images to make the print perfect to be inserted in a notebook. 
 
 ## Usage:
-- Open the pdf in the chrome pdf viewer;
-- press on the *print icon*;
-- under Destination set **Save as PDF**
-- check **Print as image** box
-- press *Save*
 - save the pdf file in the folder of PDF2printable.py
-- move with the teminal to the same folder and run the following code:
+- move with the teminal to the same folder and run:
 
 <code>pyhton PDF2printable.py filename.pdf </code>
 
@@ -27,7 +21,7 @@ The ouput of the script is _filename.docx_ file in the filename.pdf folder.
 ## Install
 <em>Intall the libraries</em>
 
-<code>pip install pillow PyPDF4 python-docx</code>
+<code>pip install pillow PyPDF4 python-docx wand</code>
 
 <em>Download the script</em>
 <li><code>git clone https://github.com/AndreaMnzt/PDF2printable.git</code></li>
