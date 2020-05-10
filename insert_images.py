@@ -1,7 +1,10 @@
 from PIL import Image
 import io
 from docx import Document
-import StringIO
+try:
+    from StringIO import StringIO as StringIO ## for Python 2
+except ImportError:
+    from io import BytesIO as StringIO  ## for Python 3
 from docx.shared import Cm
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from math import ceil
@@ -56,10 +59,10 @@ def white_border(cell):
 
 def insert_images(document, sizes, imgs_per_page, right_page):
 	n_rows, n_columns, side_bar, top_bar, img_width, img_height = sizes
-	
+
 	#get tables in docx document
 	tables = document.tables
-	
+
 	#start by a 0x(n_columns+1) grid
 	table = document.add_table(rows=1, cols=n_columns+1)
 	table.rows[0].height = top_bar
@@ -68,70 +71,68 @@ def insert_images(document, sizes, imgs_per_page, right_page):
 		table.columns[0].width = side_bar
 		for j in range(1,len(table.columns)):
 			table.columns[j].width = int(ceil(img_width))
-		
+
 	else: #put the border in the right
 		for j in range(len(table.columns)-1):
 				table.columns[j].width = int(ceil(img_width))
 		table.columns[-1].width = side_bar
-			
+
 	table.style = "Table Grid"
 	table.autofit = False
 	table.allow_autofit = False
 
 	#if right_page:
 	#	table.alignment = WD_TABLE_ALIGNMENT.LEFT
-	#else: 
+	#else:
 	#	table.alignment = WD_TABLE_ALIGNMENT.LEFT
-		
+
 	#index for the column in the grid to insert the image
 	col = 0
-				
+
 	#add a row to the table
 	row_cells = table.add_row().cells
 	row_cells[0].height = img_height
-	
+
 	#for every image
 	for i in range(0,len(imgs_per_page)):
-					
+
 		#get the image to print in the table this cycle
 		image = imgs_per_page[i]
-										
-		#every n_column image change row by creating a new row 
+
+		#every n_column image change row by creating a new row
 		if(col == n_columns):
 			col = 0
 			row_cells = table.add_row().cells
 			row_cells[0].height = img_height
-	
+
 		#change border accoring to right or left page
 		if right_page:
 			actual_col = col+1
 		else:
 			actual_col = col
-		
-		
-		#create paragraph within the table 
+
+
+		#create paragraph within the table
 		paragraph = row_cells[actual_col].paragraphs[0]
 		paragraph.style = 'List'
 		cell_paragraph_format = paragraph.paragraph_format
 		cell_paragraph_format.left_indent = Cm(0.1)
 		cell_paragraph_format.right_indent = Cm(0)
-		
+
 		#set alignment of picture inside the table
 		if right_page:
 			paragraph.alignment = WD_TABLE_ALIGNMENT.LEFT
-		else: 
+		else:
 			paragraph.alignment = WD_TABLE_ALIGNMENT.RIGHT
-					
+
 		#add image to table
 		run = paragraph.add_run()
-		run.add_picture(StringIO.StringIO(image), width = img_width , height = img_height)
+		run.add_picture(StringIO(image), width = img_width , height = img_height)
 		run.space_before = Cm(0)
-					
+
 		col += 1
-	
+
 	#set border to white
 	for i in range(len(table.rows)):
 		for j in range(len(table.columns)):
 			white_border(table.cell(i,j))
-						
-		
