@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import PyPDF4
 from PIL import Image
 import io
