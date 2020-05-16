@@ -27,6 +27,10 @@ The ouput of the script is _filename.docx_ file in the filename.pdf folder.
 <em>Download the script</em>
 <li><code>git clone https://github.com/AndreaMnzt/PDF2printable.git</code></li>
 
+<em>If you are using a Windows OS you have to install imageMagick library, you can find it at</em>
+<a>http://docs.wand-py.org/en/latest/guide/install.html#install-imagemagick-on-windows</a>
+ 
+ 
 ## Options
 At the moment the only way to customize the script is edit the following lines of code:
 
