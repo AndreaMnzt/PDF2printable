@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import PyPDF4
+import PyPDF2 as PyPDF4 #or uso pypdf4, but now it's not working
 from PIL import Image
 import io
 from docx import Document
@@ -12,13 +12,13 @@ from wand.image import Image as wImage
 
 ##Change this parameter to change the page format
 #rows of images grid
-n_rows = 3
+n_rows = 2
 #columns of images grid
 n_columns = 2
 #width of the sidebar
 side_bar = Cm(1.5)
 #height of the top bar
-top_bar = Cm(.5)
+top_bar = Cm(1.5) #might be lower for old printers eg 0.5
 
 #angle to rotate
 #angle  = 90 feature in dev
@@ -31,8 +31,8 @@ document = Document()
 sections = document.sections
 doc_height = sections[0].page_height = Cm(29.7)
 doc_width = sections[0].page_width  = Cm(21.0)
-img_width = (doc_width - side_bar)/n_columns * 0.98
-img_height = (doc_height - top_bar)/n_rows * .93
+img_width = (doc_width - side_bar)/n_columns * 0.96
+img_height = (doc_height - top_bar)/n_rows * 1 #might be lower
 
 
 #remove margins of the page
