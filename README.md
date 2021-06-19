@@ -1,5 +1,5 @@
 # PDF2printable
-A useful script to print pptx file made available as pdf. 
+A useful script to print pptx files made available as pdf. 
 
 The pdf pages are resized in the grid of a docx file to maximize the space for printing.
 
